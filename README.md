@@ -9,3 +9,5 @@ See [./contracts/MasterChef_reference_implementation.sol](./contracts/MasterChef
 See [./contracts/libraries/restaking/PickleAdapter.sol](./contracts/libraries/restaking/PickleAdapter.sol) for a MasterChef style adapter
 
 See [./contracts/libraries/restaking/HarvestAdapter.sol](./contracts/libraries/restaking/HarvestAdapter.sol) for a StakingRewards style adapter
+
+On the front end for users, the only necessary change should be to show the other reward token's APY and perhaps a combined APY. Use `pendingOther(uint256 _pid, address _user)` to do this in the same way as the native reward's pending method (`pendingSushi()` for example). Deposits, withdrawals & claims are called via the same methods.

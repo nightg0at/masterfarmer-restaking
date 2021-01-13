@@ -1,6 +1,7 @@
 pragma solidity 0.6.12;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Farm is ERC20("harvest.finance", "FARM"), Ownable {
@@ -54,5 +55,17 @@ contract RottenLP is ERC20, Ownable {
 contract CropsToken is ERC20("Crops Token", "CROPS"), Ownable {
   function mint(address _to, uint256 _amount) public onlyOwner {
     _mint(_to, _amount);
+  }
+
+  function globalDecay() public onlyOwner returns (uint256) {
+    return 0;
+  }
+
+  function changetransBurnrate(uint256 _newtransBurnrate) public onlyOwner returns (bool) {
+    return true;
+  }
+
+  function changedecayBurnrate(uint256 _newdecayBurnrate) public onlyOwner returns (bool) {
+    return true;
   }
 }

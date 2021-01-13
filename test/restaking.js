@@ -74,7 +74,7 @@ async function fixture(provider) {
     carol: wallets[8]
   }
 
-  const CropsFarm = await ethers.getContractFactory("contracts/MasterChef_reference_implementation.sol:MasterChef");
+  const CropsFarm = await ethers.getContractFactory("contracts/MasterChef.sol:MasterChef");
   const cropsFarm = await (CropsFarm).deploy(
     token.crops.address,
     owner.crops.address,
@@ -536,12 +536,12 @@ function adapterTest(a) {
       //console.log(poolInfo);
       let cropsBal = await token.crops.balanceOf(user.alice.address);
       let otherBal = await token[a.token].balanceOf(user.alice.address);
-      let cropsFraction = poolInfo.accSushiPerShare.div(cropsBal);
+      let cropsFraction = poolInfo.accCropsPerShare.div(cropsBal);
       let otherFraction = poolInfo.accOtherPerShare.div(otherBal);
       
       /*
       console.log("crops bal:", cropsBal, ethers.utils.formatEther(cropsBal));
-      console.log("accSushiPerShare:", poolInfo.accSushiPerShare, ethers.utils.formatEther(poolInfo.accSushiPerShare));
+      console.log("accCropsPerShare:", poolInfo.accCropsPerShare, ethers.utils.formatEther(poolInfo.accCropsPerShare));
       console.log("crops fraction:", cropsFraction, ethers.utils.formatEther(cropsFraction));
       console.log("other bal:", otherBal, ethers.utils.formatEther(otherBal));
       console.log("accOtherPerShare:", poolInfo.accOtherPerShare, ethers.utils.formatEther(poolInfo.accOtherPerShare));
@@ -560,7 +560,7 @@ function adapterTest(a) {
       await farm.crops.connect(user.bob).withdraw(0, 0);
       cropsBal = await token.crops.balanceOf(user.bob.address);
       otherBal = await token[a.token].balanceOf(user.bob.address);
-      cropsFraction = poolInfo.accSushiPerShare.div(cropsBal);
+      cropsFraction = poolInfo.accCropsPerShare.div(cropsBal);
       otherFraction = poolInfo.accOtherPerShare.div(otherBal);
 
       a.style == "StakingRewards" || a.farm == "nice" || a.farm == "rotten"
@@ -575,7 +575,7 @@ function adapterTest(a) {
       await farm.crops.connect(user.carol).withdraw(0, 200);
       cropsBal = await token.crops.balanceOf(user.carol.address);
       otherBal = await token[a.token].balanceOf(user.carol.address);
-      cropsFraction = poolInfo.accSushiPerShare.div(cropsBal);
+      cropsFraction = poolInfo.accCropsPerShare.div(cropsBal);
       otherFraction = poolInfo.accOtherPerShare.div(otherBal);
 
       a.style == "StakingRewards" || a.farm == "nice" || a.farm == "rotten"
